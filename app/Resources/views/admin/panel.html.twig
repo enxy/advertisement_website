@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% include 'menu.html.twig' %}
+    <div id="panel-menu">
+       <span class="panel-option">
+           <a href="{{ path('admin_users') }}">
+               <img src="{{ asset('images/users.jpg') }}" alt="uzytkownicy">
+               Użytkownicy serwisu
+            </a>
+       </span>
+        <span class="panel-option">
+           <a href="{{ path('adverts', {page:1}) }}">
+               <img src="{{ asset('/images/ok.png') }}" alt="zaakceptowane">
+               Opublikowane ogloszenia
+           </a>
+        </span>
+        <span class="panel-option">
+           <a href="{{ path('admins') }}">
+               <img src="{{ asset('/images/admin.png') }}" alt="admini">
+               Administratorzy
+           </a>
+        </span>
+        <span class="panel-option">
+           <a href="{{ path('admin_articles-list') }}">
+               <img src="{{ asset('/images/article.png') }}" alt="artykuly">
+               Artykuly panelu informacyjnego
+           </a>
+        </span>
+
+        <span class="panel-option">
+           <a href="{{ path('admin_notifications') }}">
+           <img class="avatar-round" src="{{ asset('/images/minus.png') }}" alt="user settings" />
+               Historia powiadomień
+           </a>
+        </span>
+        <span>
+            <a href
+        </span>
+    </div>
+    <div id="panel">
+        <div class="panel-ico"></div>
+        <div class="panel-ico"></div>
+        <div class="panel-ico"></div>
+        <div class="panel-ico"></div>
+
+
+    </div>
+{% endblock %}

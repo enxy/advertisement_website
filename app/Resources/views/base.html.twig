@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Info_ads!{% endblock %}</title>
+    {% block stylesheets %}
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
+        <link type="text/css" rel="stylesheet" href="{{ asset('css/app.css') }}"/>
+        <link type="text/css" rel="stylesheet" href="{{ asset('css/panel_informacyjny.css') }}"/>
+        <link type="text/css" rel="stylesheet" href="{{ asset('css/Save.css') }}"/>
+        <link type="text/css" rel="stylesheet" href="{{ asset('css/AutoSave.css') }}"/>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    {% endblock %}
+    {% block body %}{% endblock %}
+    {% block javascripts %}
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="{{ asset('js/articles.js') }}"></script>
+            <script src="{{ asset('js/adverts.js') }}"></script>
+            <script src="{{ asset('js/admin.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    {% endblock %}
+</head>
+<body>
+</body>
+</html>

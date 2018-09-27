@@ -1,0 +1,24 @@
+<div id="main_menu"">
+    <span style="float: left; padding-left: 0px;">
+        {% if app.session.has('admin') %}
+            <a href="{{ path('admin_panel') }}" ><button>Dashboard</button></a>
+        {% endif %}
+        {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('user_panel') }}" ><button>Dashboard</button></a>
+        {% endif %}
+        <a href="{{ path('panel_informacyjny') }}"><button>Artykuły</button></a>
+        <a href="{{ path('adverts', {'page':1}) }}"><button>Ogłoszenia</button></a>
+        <a  href="{{ path('serwis') }}" ><button>Strona główna</button></a>
+
+    </span>
+
+    <span style="float: right;">
+        {% if not app.session.has('logged') %}
+            <a href="{{ path('login') }}"><button>Logowanie</button></a>
+            <a href="{{ path('rejestracja') }}"><button>Rejestracja</button></a>
+        {% else %}
+            <span style="color:white; margin-top: 10px;">Jesteś zalogowany jako {{ app.session.get('logged')}}</span><a href="{{ path('logout') }}"><button>Wyloguj</button></a>
+       {% endif %}
+       <a href="{{ path('about_serwis')}}"><button>O serwisie</button></a>
+    </span>
+</div>

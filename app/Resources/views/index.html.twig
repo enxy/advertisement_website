@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="wrap">
+        <div id="arrow-left" class="arrow"></div>
+        <div id="slider">
+            <a href={{ path('rejestracja') }}><button>Logowanie/rejestracja</button>
+            <div class="slide slide1">
+                <div class="slide-content">
+                    <span>Image One</span>
+                </div>
+            </div>
+            <div class="slide slide2">
+                <div class="slide-content">
+                    <span>Image Two</span>
+                </div>
+            </div>
+            <div class="slide slide3">
+                <div class="slide-content">
+                    <span>Image Three</span>
+                </div>
+            </div>
+        </div>
+        <div id="arrow-right" class="arrow"></div>
+    </div>
+    <div id="bottom_intro"></div>
+    <a href="#">
+    <div class="panels">
+            <img src="#">
+            <div class="panels_articles">
+                <h1>Panel informacyjny</h1>
+                <p>Komunikacja masowa: prasa i Internet</p>
+            </div>
+    </div></a>
+    <a href={{ path('ogloszenia') }}>
+    <div class="panels">
+        <img src="computer.jpg">
+        <div class="panels_articles">
+            <h1>Panel ogoszeniowy</h1>
+            <p>Zamieszczaj ogoszenia, przeglądaj oferty</p>
+        </div>
+    </div>
+   </a>
+{% endblock %}

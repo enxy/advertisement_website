@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {%  include 'menu.html.twig' %}
+    <div class="account-settings" style="margin-bottom: 80px;">
+        <div style="padding-top: 60px;">
+            <h1 style="font-weight: 700;">Account settings</h1>
+            <img class="avatar-round" src="{{ asset('/~15_plewa/serwis_ogloszeniowy/app/web/uploads/photos/user/'~user_photo) }}" alt="user settings" />
+             <h3 class="title-center">Personal data</h3>
+            {{ form_start(form_data) }}
+                {{ form_widget(form_data) }}
+                <button type="submit" class="custom-bttn">Save</button>
+            {{ form_end(form_data) }}
+        </div>
+        <div>
+            <h3 class="title-center">Change avatar</h3>
+            {{ form_start(photo_form) }}
+                {{ form_widget(photo_form) }}
+                <button type="submit" class="custom-bttn">Save avatar</button>
+            {{ form_end(photo_form) }}
+        </div>
+        <div>
+            <h3 class="title-center">Change password</h3>
+            {{ form_start(form_password) }}
+                {{ form_widget(form_password) }}
+                <button type="submit" class="custom-bttn">Change</button>
+            {{ form_end(form_password) }}
+        </div>
+    </div>
+{% endblock %}

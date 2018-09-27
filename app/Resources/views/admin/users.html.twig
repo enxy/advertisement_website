@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {%  include 'menu.html.twig' %}
+    {%  if app.session.flashBag.get('error') %}
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div class="alert alert-danger">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {%  if app.session.flashBag.get('success') %}
+        {% for flash_message in app.session.flashBag.get('success') %}
+            <div class="alert alert-success">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <table id="users" style="margin-top: 100px;">
+        <h2 style="padding-top: 100px; text-align: center; font-weight: 800; font-size: 2.2em;">Użytkownicy serwisu ogłoszeniowego</h2>
+        <tr>
+            <th>Login</th>
+            <th>Imie</th>
+            <th>Nazwisko</th>
+            <th>E-mail</th>
+            <th>Telefon</th>
+            <th>Options</th>
+        </tr>
+        {% for user in users %}
+            <tr id="row-{{user.id}}">
+                <td><strong>{{ user.username }}</strong></td>
+                <td>
+                    {% if user.name is empty %}
+                        brak
+                    {% else %}
+                        {{ user.name }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if user.surname is empty %}
+                        brak
+                    {% else %}
+                        {{ user.surname }}
+                    {% endif %}
+                </td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% if user.phone is empty %}
+                        brak
+                    {% else %}
+                        {{ user.phone }}
+                    {% endif %}
+                </td>
+                <td class="options">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal-{{user.id}}">
+                        {%if not user.blocked %}
+                            Zablokuj konto
+                        {% else %}
+                            Odblokuj konto
+                        {% endif %}
+                    </button>
+                    <!-- Modal -->
+                    <div id="myModal-{{user.id}}" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                            {%if not user.blocked %}
+                                <h4 class="modal-title">Blokowanie konta</h4>
+                            {% else %}
+                                <h4 class="modal-title">Odblokowanie konta</h4>
+                            {% endif %}
+                          </div>
+                          <form action="{{ path('block_user') }}" method="post">
+                             <input type="hidden" name="user_id" value="{{user.id}}" />
+                             <input type="hidden" name="admin_id" value="{{admin_id}}" />
+                             <input type="hidden" name="title" value="Zablokowane konto" />
+                             <div class="modal-body">
+                                 {%if not user.blocked %}
+                                     <p>Konto użytkownika {{user.name}} {{user.surname}} zostanie zablokowane. Wymagane jest uzasadnienie decyzji:</p>
+                                     <input type="text" style="width: 400px;" name="description" placeholder="uzasadnienie..." required=true/>
+                                 {% else %}
+                                     <p>Konto użytkownika {{user.name}} {{user.surname}} zostanie odblokowane.
+                                 {% endif %}
+                             </div>
+                             <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+                                <button type="submit" class="btn btn-default">Zapisz</button>
+                              </div>
+                           </form>
+                        </div>
+                      </div>
+                    </div>
+                    <a href="{{ path('admin_user_adverts', {'page':1, 'userId':user.id}) }}">
+                        <button class="btn btn-basic btn-lg">
+                            pokaż ogłoszenia
+                        </button>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

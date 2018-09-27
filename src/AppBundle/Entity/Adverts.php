@@ -1,0 +1,383 @@
+<?php
+
+namespace AppBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
+/**
+ * Class AdvertsController.
+ *
+ * @package AppBundle\Entity
+ *
+ * @ORM\Table(
+ *     name="adverts"
+ * )
+ * @ORM\Entity(
+ *     repositoryClass="AppBundle\Repository\AdvertsRepository"
+ * )
+ */
+class Adverts
+{
+    /**
+     * Primary key.
+     *
+     * @var integer $id
+     *
+     * @ORM\Id
+     * @ORM\Column(
+     *     name="id",
+     *     type="integer",
+     *     nullable=false,
+     *     options={"unsigned"=true},
+     * )
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    /**
+     * Title.
+     *
+     * @var string $title
+     *
+     * @ORM\Column(
+     *     name="title",
+     *     type="string",
+     *     length=128,
+     *     nullable=false,
+     * )
+     */
+    private $title;
+    /**
+     * Photo.
+     *
+     * @var string $photo
+     *
+     * @ORM\Column(
+     *     name="photo",
+     *     type="string",
+     *     length=128,
+     *     nullable=true,
+     * )
+     * @Assert\Image(
+     *     maxSize = "1024k",
+     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg", "image/jpeg", "image/pjpeg"},
+     * )
+     */
+    private $photo;
+    /**
+     * Content.
+     *
+     * @var string $content
+     *
+     * @ORM\Column(
+     *     name="content",
+     *     type="string",
+     *     length=526,
+     *     nullable=false,
+     * )
+     */
+    private $content;
+    /**
+     * Category.
+     *
+     * @var string $category
+     *
+     * @ORM\Column(
+     *     name="category",
+     *     type="string",
+     *     length=526,
+     *     nullable=false,
+     * )
+     */
+    private $category;
+    /**
+     * @ORM\Column(
+     *     name="date_added", type="datetime", nullable=false
+     * )
+     */
+    private $date_added;
+    /**
+     * @ORM\Column(
+     *     name="public", type="boolean", nullable=false, options={"default" = 1}
+     * )
+     */
+    private $public;
+    /**
+     * Many adverts can have many cities.
+     * @ORM\ManyToMany(targetEntity="City", inversedBy="adverts")
+     * @ORM\JoinTable(name="adverts_cities")
+     */
+    private $cities;
+    /**
+     * @ORM\ManyToOne(targetEntity="Voivodeship", inversedBy="adverts")
+     * @ORM\JoinColumn(name="voivodeship_id", referencedColumnName="id")
+     */
+    private $voivodeship_id;
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="adverts")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user_id;
+    /**
+     * @ORM\Column(
+     *     name="blocked", type="boolean", nullable=false
+     * )
+     */
+    protected $blocked;
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Adverts
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get public
+     *
+     * @return boolean
+     */
+    public function getPublic()
+    {
+        return $this->public;
+    }
+
+    /**
+     * Set public
+     *
+     * @param boolean $public
+     *
+     * @return Adverts
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set photo
+     *
+     * @param string $photo
+     *
+     * @return Adverts
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return string
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Adverts
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+    /**
+     * @param string $category
+     *
+     * @return Adverts
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+    /**
+     * Get category
+     *
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cities = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    /**
+     * Add city
+     *
+     * @param \AppBundle\Entity\City $city
+     */
+    public function addCity(\AppBundle\Entity\City $city)
+    {
+        $this->cities[] = $city;
+    }
+
+    /**
+     * Remove city
+     *
+     * @param \AppBundle\Entity\City $city
+     */
+    public function removeCity(\AppBundle\Entity\City $city)
+    {
+        $this->cities->removeElement($city);
+    }
+
+    /**
+     * Get cities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCities()
+    {
+        return $this->cities;
+    }
+
+    /**
+     * Set voivodeship_id
+     *
+     * @param \AppBundle\Entity\Voivodeship $voivodeship_id
+     *
+     * @return \AppBundle\Entity\Voivodeship $voivodeship_id
+     */
+    public function setVoivodeshipId(\AppBundle\Entity\Voivodeship $voivodeship_id = null)
+    {
+        $this->voivodeship_id = $voivodeship_id;
+
+        return $this->voivodeship_id;
+    }
+
+    /**
+     * Get voivodeship_id
+     *
+     * @return \AppBundle\Entity\Voivodeship $voivodeship_id
+     */
+    public function getVoivodeshipId()
+    {
+        return $this->voivodeship_id;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param \AppBundle\Entity\User $userId
+     *
+     * @return Adverts
+     */
+    public function setUserId(\AppBundle\Entity\User $userId = null)
+    {
+        $this->user_id = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * Set dateAdded
+     *
+     * @param \DateTime $dateAdded
+     *
+     * @return Adverts
+     */
+    public function setDateAdded($dateAdded)
+    {
+        $this->date_added = $dateAdded;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAdded
+     *
+     * @return \DateTime
+     */
+    public function getDateAdded()
+    {
+        return $this->date_added;
+    }
+
+    /**
+     * Set blocked
+     *
+     * @param boolean $blocked
+     *
+     * @return Adverts
+     */
+    public function setBlocked($blocked)
+    {
+        $this->blocked = $blocked;
+
+        return $this;
+    }
+
+    /**
+     * Get blocked
+     *
+     * @return boolean
+     */
+    public function getBlocked()
+    {
+        return $this->blocked;
+    }
+}

@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include 'menu.html.twig' %}
+    <!-- Filters section -->
+    <div style="width: 35%; margin-left: 20px;"  class="input-group mb-3">
+       <input style="width: 30%; font-size: 1em; display: inline; margin-top: 80px;" id="advert_title" type="text" class="form-control" placeholder="search advert by title..." >
+       <button style="height: 40px; margin-top: 80px;" id="titleBtn" class="btn btn-primary" type="button"><span style="font-size: 1.6em; padding: 0 5px;"class="glyphicon glyphicon-search"></span></button>
+    </div>
+    <div style="background-color: white; padding: 10px; margin: 30px 20px 100px 20px">
+        <form id="filter_form" method="POST" action="{{ path('advert_filters') }}">
+            <div style="width: 80%;" class="row">
+                <div class="col">
+                    <label for="filterCategorye"><strong>Category</strong></label>
+                    <select class="class="input-group mb-3"" name="category" id="filterCategory" class="form-control" style="padding-top: 5px border-radius: 10px;">
+                        <option value=0>Choose...</option>
+                        <option value="sell">Sell</option>
+                        <option value="buy">Purchase</option>
+                        <option value="tenant">Tenancy</option>
+                        <option value="give">Give away for free</option>
+                    </select>
+                </div>
+                <div class="col">
+                      <label for="filterVoivodeship"><strong>Voivodeship</strong></label>
+                      <select class="input-group mb-3" name="voivodeship" id="advert_voivodeship_id" class="form-control" style="padding-top: 12px;">
+                            <option value="0">Choose...</option>
+                            <option value="1">dolnośląskie</option>
+                            <option value="2">małopolskie</option>
+                            <option value="3">lubelskie</option>
+                            <option value="4">lubuskie</option>
+                            <option value="5">łódzkie</option>
+                            <option value="6">mazowieckie</option>
+                            <option value="7">małopolskie</option>
+                            <option value="8">opolskie</option>
+                            <option value="9">podkarpackie</option>
+                            <option value="10">podlaskie</option>
+                            <option value="11">pomorskie</option>
+                            <option value="12">śląskie</option>
+                            <option value="13">świętokrzyskie</option>
+                            <option value="14">warmińsko-mazurskie</option>
+                            <option value="15">wielkopolskie</option>
+                            <option value="16">zachodnio-pomorskie</option>
+                       </select>
+                 </div>
+                <div class="col">
+                   <label for="filterCity"><strong>City</strong></label>
+                   <select class="input-group mb-3"  name="city" id="city_select" class="form-control" style="padding-top: 10px;" disabled>
+                         <option value=0>Choose...</option>
+                   </select>
+                   <em style="color: red;">*depends from selected voivodesip</em>
+                </div>
+                <button style="height: 40px; margin-top: 30px; margin-left: 20px;" id="filter_params" class="btn btn-primary" type="button"><span style="font-size: 1.3em;">Search</span><span style="font-size: 1.6em; padding: 0 5px;"class="glyphicon glyphicon-search"</span></button>
+                <a href="{{ path('advert_session') }}">
+                    <span style="margin-top: 40px; margin-left: 20px; font-size: 1.5em" id="basic-search" title="basic searching" class="glyphicon glyphicon-retweet"></span>
+                </a>
+            </div>
+        </form>
+        {% if tags %}
+            <div style="margin-top: 30px;">Search params:
+            {% for tag in tags %}
+                {% if tag %}
+                    <span style="font-size: 0.8em;" class="btn btn-primary">{{ tag }}</span>
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <!-- Search results (adverts) -->
+    {% if not adverts %}
+        {% if not title %}
+            <div class="alert-advert">
+                <p>No adverts</p>
+            </div>
+        {% else %}
+            <div class="alert-advert">
+                <p> No adverts with the title {{ title }} </p>
+            </div>
+        {% endif %}
+    {% elseif adverts is not iterable %}
+        <div class="alert-advert">
+            <p>{{ adverts }} </p>
+        </div>
+    {% else %}
+          <!-- Default panel contents -->
+        <div style="width: 90%; margin-left: 5%; padding: 20px; border: solid 1 px black;">
+              <!-- Table -->
+            <table id="advert_table" style="witdh: 100%; padding: 30px;" class="table">
+                <thead>
+                    <tr style="height: 50px; font-size: 1.3em; color: white;" class="bg-primary" >
+                        <th scope="col">Zdjęcie</th>
+                        <th scope="col">Tytuł</th>
+                        <th scope="col">Kategoria</th>
+                        <th scope="col">Miasto</th>
+                        <th scope="col">Województwo</th>
+                        <th scope="col">Data dodania</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for advert in adverts %}
+                        <tr>
+                            <td><a href="{{ path('advert', {id: advert.id})}}">
+                                <img style="width: 80px; height: 80px;" src="{{ asset('uploads/photos/admin/')~advert.photo }}"/>
+                            </a></td>
+                            <td><a href="{{ path('advert', {id: advert.id})}}">
+                                {{ advert.title }}
+                            </td></a>
+                            <td><a href="{{ path('advert', {id: advert.id})}}">
+                                {{ advert.category }}
+                            </a></td>
+                            <td><a href="{{ path('advert', {id: advert.id})}}">
+                                {% for city in advert.cities %}
+                                    {{ city.name }}
+                                {% endfor %}
+                            </a></td>
+                            <td><a href="{{ path('advert', {id: advert.id})}}">
+                                {{ advert.voivodeshipId.name }}
+                            </a></td>
+                            <td><a href="{{ path('advert', {id: advert.id})}}">
+                                {{ advert.dateAdded|date('Y-m-d') }}
+                            </a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- Pagination -->
+        <div  style="margin-left: 40%;">
+            <nav>
+              <ul class="pagination">
+                {% for i in range(1, page_number) %}
+                    <li style="font-size: 1.2em;" class="page-item">
+                    {% if title %}
+                        <a id="page{{ i }}" class="page-link" href="{{ path('search_title', {'page':i, 'title':title }) }}">{{ i }}</a>
+                    {% else %}
+                        <a id="page{{ i }}" class="page-link" href="{{ path('adverts', {'page':i }) }}">{{ i }}</a>
+                    {% endif %}
+                    </li>
+                {% endfor %}
+              </ul>
+            </nav>
+        </div>
+        <script type="text/javascript">
+             var id = window.location.href.split("/").slice(-1);
+             if (!parseInt(id)) {
+                 id = window.location.href.split("/").slice(-2)[0];
+             }
+             var pageNumber = document.getElementById('page' + id);
+             pageNumber.classList.add('pagination-active');
+        </script>
+    {% endif %}
+
+{% endblock %}

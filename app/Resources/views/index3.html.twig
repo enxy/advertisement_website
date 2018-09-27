@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {%  include 'menu.html.twig' %}
+    <div class="main-header">
+        <h1>Komunikacja masowa. Serwis ogłoszeniowy</h1>
+    </div>
+    <div class="square index-info"></div>
+    <div class="square">
+        <p class="text-intro">Prasa i internet</p>
+        <p class="text-title">Artykuły na temat <br/>komunikacji masowej</p>
+        <a href="{{ path('panel_informacyjny') }}"><button class="text-button">Zapoznaj się z treścią</button></a>
+    </div>
+    <div class="square">
+         <p class="text-intro">Przeglądaj, dodawaj, edytuj ogłoszenia</p>
+         <p class="text-title">Serwis ogłoszeniowy</p>
+         <a href="{{ path('adverts', {'page':1}) }}"><button class="text-button">Przejdz do serwisu</button></a>
+    </div>
+    <div style="margin-bottom: 400px;" class="square index-adds"></div>
+    <div class="main-footer">
+        <p>Wykonanie projektu: Jolanta Plewa, 2018</p>
+    </div>
+{% endblock %}

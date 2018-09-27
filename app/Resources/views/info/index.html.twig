@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% include 'menu.html.twig' %}
+    <div style="padding-top: 100px;">
+        <h2 style="font-weight: 1000; font-size: 3em; margin-left: 50px;" >Prasa</h2>
+           <a href="{{ path('prasa_poczatki') }}" class="photo-div">
+                <img class="box-image" src="{{ asset('images/articles/time_min.jpg') }}" alt="starozytnosc" style="height: 210px;"/>
+                <span style="text-align:center;">Początki gazet na świecie</span>
+            </a>
+
+             <a href="{{ path('prasa_gutenberg') }}" class="photo-div">
+                <img class="box-image" src="{{ asset('images/articles/img2_min.jpg') }}" alt="starozytnosc" style="height: 210px;"/>
+                <span>Wynalazek Gutenberga</span>
+            </a>
+            <a href=" {{ path('druk') }}" class="photo-div">
+                <img class="box-image" src="{{ asset('images/articles/img4_min.jpg') }}" alt="starozytnosc"  style="height: 210px;"/>
+                 <span>Druk zmechanizowany </span>
+            </a>
+            <a href="{{ path('the_times') }}" class="photo-div" style="clear: both;">
+                <img class="box-image" src="{{ asset('images/articles/img3_min.jpg') }}" alt="starozytnosc" style="height: 210px;"/>
+                <span>Historia <em>The Times</em></span>
+            </a>
+
+            <a href=" {{ path('XIX_XX_wiek') }}" class="photo-div">
+                <img class="box-image" src="{{ asset('images/articles/img5_min.jpg') }}" alt="starozytnosc"  style="height: 210px;"/>
+                 <span>Prasa przelomu XIX i XX wieku </span>
+            </a>
+           <a href=" {{ path('reklamy_i_ogloszenia') }}" class="photo-div">
+               <img class="box-image" src="{{ asset('images/articles/img6_min.jpg') }}" alt="starozytnosc"  style="height: 210px;"/>
+                <span>Reklamy i ogłoszenia w gazetach </span>
+           </a>
+    </div>
+    <div style="padding-top: 100px; clear: both;">
+            <h2 style="font-weight: 1000; font-size: 3em; margin-left: 50px;">Internet</h2>
+            <a href="{{ path('internet') }}" class="photo-div">
+                <img class="box-image" src="{{ asset('images/network.jpg') }}" alt="internet" style="height: 210px;"/>
+                <span style="text-align:center;">Rozwój internetu w obliczu III Wojny Światowej</span>
+            </a>
+
+             <a href="{{ path('tcp_ip') }}" class="photo-div">
+                <img class="box-image" src="{{ asset('images/net_panel.jpg') }}" alt="tcp/ip" style="height: 210px;"/>
+                <span>Powstanie TCP/IP oraz DNS</span>
+            </a>
+            <a href=" {{ path('www') }}" class="photo-div">
+                <img class="box-image" src="{{ asset('images/www.jpg') }}" alt="www"  style="height: 210px;"/>
+                 <span>World Wide Web</span>
+            </a>
+
+            <a href="{{ path('cyfryzacja') }}" class="photo-div"  style="clear: both;">
+                <img class="box-image" src="{{ asset('images/articles/img7_min.jpg') }}" alt="cyfryzacja"  style="height: 210px;"/>
+                 <span>Druk w swiecie cyfrowym </span>
+            </a>
+    </div>
+{% endblock %}

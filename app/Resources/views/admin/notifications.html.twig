@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {%  include 'menu.html.twig' %}
+    <div style="padding-top: 130px;" class="notification-panel">
+        <h2 style="font-size: 1.2em;">Historia przesanych powiadomień</h2>
+    </div>
+    {% if not notifications %}
+        <p style="padding: 200px 100px; font-size: 2em; font-weight: 800;">Brak powidomień</p>
+    {% else %}
+        {% for notification in notifications %}
+            <div style="height: 100px;" class="alert alert-info notification" role="alert">
+                <strong>{{ notification.title }}</strong>
+                <span style="float: right; text-align: right;">
+                    <strong>{{ notification.date|date('Y-m-d') }}</strong><br/>
+                    <strong>Użytkownik: {{ notification.user.name }} {{ notification.user.surname }}</strong><br/>
+                    <strong> Administrator: {{ notification.admin.name }} {{ notification.admin.surname }}</strong><br/>
+                </span><br/>
+                {{ notification.description }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

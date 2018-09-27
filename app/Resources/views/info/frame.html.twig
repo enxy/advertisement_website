@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% include 'menu.html.twig' %}
+    <img class="article_image" src="{{ asset("images/articles/"~filename~".jpg") }}" alt="poczatki prasy">
+    {% if app.session.has('admin') %}
+        <input type="hidden" name="file_name" id="filename" value="{{filename}}" />
+        <button onclick="articlesModule.editMode()" class="edit_mode">Edytuj tresc</button>
+    {% endif %}
+    <div class="article_p">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+    </div>
+    <button class="save_button" onclick="articlesModule.saveChanges()">Zapisz zmiany</button>
+    <div id="sources">gsdgdsfsgafhsafgasfhg</div>
+    <script>
+        var filename = "{{ filename }}";
+        var sources = document.getElementById("sources");
+        source_positions = {
+            "article1" : [1],
+            "article2" : [1,2],
+            "article3" : [1,2],
+            "article4" : [1],
+            "article2" : [1],
+            "article6" : [3],
+            "article7" : [4],
+            "article9" : [5,6],
+            "article10" : [7],
+            "article11" : [5],
+            "article2" : [1,2]
+        };
+        var html = "<div style=\"border-top: 1px solid black; text-align: center; font-size: 1.4em; margin:20px 0px 40px 0px;\">Opracowano na podstawie:";
+        source_positions[filename].forEach(function(item){
+            html += " <a href= {{ path('about_serwis') }}#" + item +">" + item + "  </a>";
+        });
+        html += "</div>";
+        sources.innerHTML = html;
+        document.querySelector('.required').style.display = 'none';
+    </script>
+{% endblock %}

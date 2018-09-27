@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+    {% block body %}
+    {%  include 'menu.html.twig' %}
+    <div id="press-list" style="margin-top: 0px;">
+        <ol><h2 style="font-size: 2em; color: lightsteelblue;">Prasa</h2>
+            <li>
+                <a href="{{ path('prasa_poczatki') }}">
+                    Poczatki gazet na swiecie
+                </a>
+            </li>
+            <li>
+                 <a href=" {{ path('prasa_gutenberg') }}">
+                    Wynalazek Gutenberga, a rozwoj prasy
+                 </a>
+            </li>
+            <li>
+                <a href=" {{ path('the_times') }}">
+                     Historia <em>The Times</em>
+                </a>
+            </li>
+            <li>
+                <a href=" {{ path('druk') }}">
+                    Druk zmechanizowany
+                </a>
+            </li>
+            <li>
+                <a href=" {{ path('XIX_XX_wiek') }}">
+                    Prasa przelomu XIX i XX wieku</h3>
+                </a>
+            </li>
+            <li>
+                <a href=" {{ path('reklamy_i_ogloszenia') }}">
+                    Historia reklam i ogloszen w gazetach
+                </a>
+            </li>
+         </ol>
+    </div>
+    <div id="net-list">
+        <ol> <h2 style="font-size: 2em; color: lightsteelblue;">Internet</h2>
+             <li>
+                <a href="{{ path('internet') }}">
+                    Rozwój internetu w obliczu III Wojny Światowej
+                </a>
+             </li>
+             <li>
+                <a href="{{ path('tcp_ip') }}">
+                    Powstanie TCP/IP oraz DNS
+                </a>
+             </li>
+             <li>
+                <a href=" {{ path('www') }}">
+                    World Wide Web
+                </a>
+             </li>
+            <li>
+                <a href=" {{ path('cyfryzacja') }}">
+                    Druk w swiecie cyfrowym
+                </a>
+            </li>
+         </ol>
+    </div>
+{% endblock %}

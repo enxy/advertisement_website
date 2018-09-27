@@ -1,0 +1,73 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+    encoders:
+          AppBundle\Entity\User:
+              algorithm: bcrypt
+          AppBundle\Entity\Admin:
+              algorithm: bcrypt
+
+    role_hierarchy:
+            ROLE_ADMIN:       ROLE_USER
+            ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        #in_memory:
+           # memory: ~
+        user_provider:
+            entity:
+               class: AppBundle:User
+               property: username
+
+        admin_provider:
+            entity:
+              class: AppBundle:Admin
+              property: username
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        user_secure_area:
+            pattern: /user/.*
+            anonymous: ~
+            provider: user_provider
+            form_login:
+                login_path: login
+                check_path: login
+                failure_path: login
+                default_target_path: user_panel
+            logout:
+                path: logout
+                target: login
+
+        admin_secure_area:
+            pattern: /admin/.*
+            anonymous: ~
+            provider: admin_provider
+            form_login:
+                 login_path: admin_login
+                 check_path: admin_login
+                 failure_path: admin_login
+                 default_target_path: admin_panel
+            logout:
+                 path: logout
+                 target: admin_login
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+
+            # activate different ways to authenticate
+
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+            #http_basic: ~
+
+            # https://symfony.com/doc/current/security/form_login_setup.html
+            #form_login: ~

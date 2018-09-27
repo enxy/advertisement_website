@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% include 'menu.html.twig' %}
+    <div style="text-align: center; margin: 40px 0">
+    <h1>Sorry you have no right to access this area! Try to login first <a href="{{ path('login') }}"><span class="highligter">here.</a></span> </h1>
+    </div>
+{% endblock %}

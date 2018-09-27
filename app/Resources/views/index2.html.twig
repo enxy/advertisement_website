@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {%  include 'menu.html.twig' %}
+    {#<div class="slider-main">#}
+        {#<article class="slider-main-elems active">#}
+            {#<h3 class="slide-title">1 Lorem ipsum dolor sit.</h3><br>#}
+            {#<p class="slide-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>#}
+        {#</article>#}
+        {#<article class="slider-main-elems">#}
+            {#<h3 class="slide-title">2 Lorem ipsum dolor sit.</h3>#}
+            {#<p class="slide-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>#}
+        {#</article>#}
+        {#<article class="slider-main-elems">#}
+            {#<h3 class="slide-title">3 Lorem ipsum dolor sit.</h3>#}
+            {#<p class="slide-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>#}
+        {#</article>#}
+    {#</div>#}
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="w-100 p-20" style="max-height: 500px;" src="{{ asset('images/info.jpg') }}" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="w-100 p-20" style="max-height: 500px;" src="{{ asset('images/info_panel.jpg') }}" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="w-100 p-20" style="max-height: 500px;" src="{{ asset('images/network.jpg') }}" alt="Third slide">
+            </div>
+        </div>
+    </div>
+    <div class="index_panel">
+        <img src="{{ asset('images/info.jpg') }}" alt="panel informacyjny"/>
+        <article>
+            <h2 class="slide-title">Panel informacyjny</h2>
+            <p>Zapoznaj sie z informacjami na temat prasy oraz internetu</p>
+            <a href="{{ path('panel_informacyjny') }}"><button>Przejdz do informacji</button></a>
+        </article>
+    </div>
+    <div style="width: 100%; background-color: slategray;" >
+    <div class="index_panel">
+        <img src="{{ asset('images/adverts.jpg') }}" alt="panel ogoszeniowy"/>
+    <article>
+        <h2>Panel informacyjny</h2>
+        <p>Zapoznaj sie z informacjami na temat prasy oraz internetu</p>
+        <a href="{{ path('panel_informacyjny') }}"><button>Przejdz do informacji</button></a>
+    </article>
+    </div>
+    </div>
+    <script src="{{ asset('js/slider.js') }}" type="module"></script>
+{% endblock %}

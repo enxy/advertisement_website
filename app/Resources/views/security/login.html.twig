@@ -1,0 +1,23 @@
+{%  extends 'base.html.twig' %}
+{% block body %}
+     {% include 'menu.html.twig' %}
+    <div class="login_view">
+        <h2>Logowanie</h2>
+        <form action="{{ path('login') }}" method="post" style="margin-bottom: 30px;">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="email" name="_username" value="{{ last_username }}" />
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="_password" />
+            </div>
+            <button type="submit">login</button>
+        </form>
+         <span>Nie posiadasz konto? Zarejestruj sie <a href=" {{ path('rejestracja') }} ">tutaj</a></span>
+        {% if error %}
+            {#<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
+            <p class="error_login">Niepoprawny login lub haslo</p>
+        {% endif %}
+    </div>
+{%  endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% include 'menu.html.twig' %}
+    <div id="addAdvert" class="cityAdd">
+        {%  if app.session.flashBag.get('error') %}
+            {% for flash_message in app.session.flashBag.get('error') %}
+                <div class="alert alert-success">
+                    {{ flash_message }}. <a href="{{  path('advert_add') }}">Kolejne</a>, aby dodac kolejne.
+                </div>
+            {% endfor %}
+        {% endif %}
+        <h2>Add new advertisement</h2>
+        {{ form_start(add_form) }}
+        {{ form_widget(add_form) }}
+        <label for="advert_voivodeship_id">City</label>
+        <select id="city_select" name="cities" disabled>
+            <option id="city_options" value="none">Chose</option>
+        </select>
+        <span style="color: red; display: block; top:0;"><em>*Miasta zależą od wojewódzwa</em></span>
+        {{ form_end(add_form) }}
+        <button onclick="preSend()" id="add_advert">Add</button>
+    </div>
+{% endblock %}

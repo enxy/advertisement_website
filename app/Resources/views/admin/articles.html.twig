@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% include 'menu.html.twig' %}
+    <button onclick="wlacz()">Wlacz tryb edycji</button>
+    <div id="editor1" contenteditable="true">
+        <h1>Inline Editing in Action!</h1>
+        <p>The "div" element that contains this text is now editable.</p>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+    <script>
+        function wlacz(){
+            document.getElementById('editor1').setAttribute('contenteditable', false);
+            console.log(document.getElementById('editor1').getAttribute(('contenteditable')));
+        }
+        // Turn off automatic editor creation first.
+
+        console.log(CKEDITOR.disableAutoInline);
+        console.log(CKEDITOR.inline( 'editor1' ));
+    </script>
+{% endblock %}

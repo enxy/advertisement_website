@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% include 'menu.html.twig' %}
+    <table id="admins" style="margin-top: 150px;">
+        <tr>
+            <th>Avatar</th>
+            <th>Username</th>
+            <th>Imie</th>
+            <th>Nazwisko</th>
+            <th>Email</th>
+            <th>Telefon</th>
+            <th>Edycja konta</th>
+        </tr>
+        {% for admin in admins %}
+            <tr>
+                <td><img style="width: 70px; height: 70px; border: solid 1px lightgray; border-radius: 50%;" src="http://127.0.0.1:8000/../../../../uploads/photos/admin/{{ admin.photo }}" alt="avatar"></td>
+                <td>{{ admin.username }}</td>
+                <td>
+                    {% if admin.name is empty %}
+                        brak
+                    {% else %}
+                        {{ admin.name }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if admin.surname is empty %}
+                        brak
+                    {% else %}
+                        {{ admin.surname }}
+                    {% endif %}
+                </td>
+                <td>{{ admin.email }}</td>
+                <td>
+                    {% if admin.phone is empty %}
+                        brak
+                    {% else %}
+                        {{ admin.phone }}
+                    {% endif %}
+                </td>
+                <td>
+                {% if admin.username == username %}
+                    <a href="{{ path('admin_delete', {'adminId': admin.id}) }}"><button class="btn btn-danger" style="margin-bottom: 10px;">Usuń konto</button></a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+                      Edytuj dane
+                    </button>
+
+                        <!-- Modal -->
+                    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="exampleModalLongTitle">Edycja danych administratora</h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <img  style="width: 120px; height: 120px; margin: 0 auto; border: solid 1px lightgray; border-radius: 50%;" class="avatar-round" src="{{ asset('/~15_plewa/serwis_ogloszeniowy/app/web/uploads/photos/admin/'~current_admin.photo) }}" alt="admin settings" />
+                                    <div id="modal-admin">
+                                        <h2><strong>Dane osobowe</strong></h2>
+                                        {{ form_start(edit_form) }}
+                                        {{ form_row(edit_form.name, {'value': current_admin.name }) }}
+                                        {{ form_row(edit_form.surname, {'value': current_admin.surname }) }}
+                                        {{ form_row(edit_form.username, {'value': current_admin.username }) }}
+                                        {{ form_row(edit_form.email, {'value': current_admin.email}) }}
+                                        {{ form_row(edit_form.phone, {'value': current_admin.phone}) }}
+                                        <button type="submit" class="btn btn-primary">Zmien dane osobwe</button>
+                                        {{ form_end(edit_form) }}
+                                    </div>
+                                    <div id="modal-password">
+                                        <h3><strong>Zmiana hasla</strong></h3>
+                                        {{ form_start(password_form) }}
+                                        {{ form_widget(password_form) }}
+                                        <button type="submit" class="btn btn-primary">Zmien haslo</button>
+                                        {{ form_end(password_form) }}
+                                    </div>
+                                    <div id="modal-avatar">
+                                        <h3><strong>Dodaj avatar<strong></h3>
+                                        {{ form_start(photo_form) }}
+                                        {{ form_widget(photo_form) }}
+                                        <button type="submit" class="btn btn-primary">Dodaj zdjecie</button>
+                                        {{ form_end(photo_form) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+        {% else %}
+            <span class="xEdit">X</span>
+        {% endif %}
+        </tr>
+    {% endfor %}
+    </table>
+
+    <button id="newAdmin">+</button>
+    <div id="admin-form">
+        <h3><strong>Nowy administartor</strong></h3>
+        {{ form_start(add_form) }}
+        {{ form_widget(add_form) }}
+        <button id="addNew" type="submit">Dodaj</button>
+        {{ form_end(add_form) }}
+        <button id="cancelNew">Anuluj</button>
+    </div>
+
+    <script>
+        var button = document.getElementById('newAdmin'),
+        form = document.getElementById('admin-form'),
+        buttonC = document.getElementById('cancelNew');
+
+        button.addEventListener('click', function () {
+            if(form.style.display === "none"){
+                form.style.display="block";
+                button.style.display="none";
+            }else{
+                 form.style.display="none";
+                 button.style.display="block";
+            }
+        });
+        buttonC.addEventListener('click', function (){
+            form.style.display="none";
+            button.style.display="block";
+        });
+    </script>
+{% endblock %}

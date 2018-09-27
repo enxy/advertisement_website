@@ -1,0 +1,22 @@
+{%  extends 'base.html.twig' %}
+{%  block body %}
+    {%  include 'menu.html.twig' %}
+    <div class="dark-aside">
+        <div class="alert-success" role="alert" class="user-panel" style="padding-bottom: 20px; border-radius: 10px; width: 80%; margin-left: 10%; ">
+            <h2 class="alert-heading" style="padding: 20px 0 0 20px;">Ogłoszenia</h4>
+            <hr>
+            {% if not blocked %}
+                <a href="{{ path('advert_add') }}">{{ blocked  }} Dodaj ogłoszenie</a>
+            {% endif %}
+            <a href="{{ path('user_adverts', {'page':1}) }}">Twoje ogłoszenia</a>
+            <a href="{{ path('adverts', {'page':1}) }}">Przeglądaj ogłoszenia</a>
+        </div>
+        <div class="alert-success" role="alert" class="user-panel" style="padding-bottom: 20px; border-radius: 10px; width: 80%; margin-left: 10%; margin-top: 20px;">
+            <h2 class="alert-heading" style="padding: 20px 0 0 20px;">Ustawienia konta</h2>
+            <hr>
+            <a href="{{ path('user_account') }}">Sprawdz/edytuj dane osobowe</a>
+            <a href="{{ path('user_notifications') }}">Powiadomienia</a>
+            <a href="{{ path('user_delete', {'userId': user_id}) }}">Usuń konto</a>
+        </div>
+    </div>
+{% endblock %}

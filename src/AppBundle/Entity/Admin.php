@@ -1,0 +1,266 @@
+<?php
+
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+/**
+ * Class AdminController.
+ *
+ * @package AppBundle\Entity
+ *
+ * @ORM\Table(
+ *     name="admins_serwis"
+ * )
+ * @ORM\Entity(
+ *     repositoryClass="AppBundle\Repository\AdminRepository"
+ * )
+ */
+class Admin implements UserInterface
+{
+    /**
+     * Primary key.
+     *
+     * @var integer $id
+     *
+     * @ORM\Id
+     * @ORM\Column(
+     *     name="id",
+     *     type="integer",
+     *     nullable=false,
+     *     options={"unsigned"=true},
+     * )
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    /**
+     * @ORM\Column(
+     *     name="username", type="string", length=64, nullable=false
+     *     )
+     */
+    private $username;
+    /**
+     * @ORM\Column(
+     *     name="name", type="string", length=25, nullable=true
+     * )
+     */
+    private $name;
+    /**
+     * @ORM\Column(
+     *     name="surname", type="string", length=25, nullable=true
+     * )
+     */
+    private $surname;
+    /**
+     * @ORM\Column(
+     *     name="email", type="string", length=64, nullable=false
+     *     )
+     */
+    private $email;
+    /**
+     * @ORM\Column(
+     *     name="password", type="string", length=128, nullable=false
+     * )
+     */
+    private $password;
+    /**
+     * @ORM\Column(
+     *     name="phone", type="integer", length=25, nullable=true
+     * )
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(
+     *     name="photo", type="string", length=128, nullable=true,
+     * )
+     * @Assert\Image(
+     *     maxSize = "1024k",
+     *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg", "image/jpeg", "image/pjpeg"},
+     * )
+     */
+    private $photo;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Notification", mappedBy="admin", cascade={"persist", "remove"})
+     */
+    protected $notifications;
+
+    public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+
+    public function getRoles()
+    {
+        return array('ROLE_ADMIN', 'ROLE_USER');
+    }
+
+    public function eraseCredentials()
+    {
+    }
+    public function getUsername()
+    {
+        return $this->username;
+    }
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return Admin
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Admin
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set surname
+     *
+     * @param string $surname
+     *
+     * @return Admin
+     */
+    public function setSurname($surname)
+    {
+        $this->surname = $surname;
+
+        return $this;
+    }
+
+    /**
+     * Get surname
+     *
+     * @return string
+     */
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Admin
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return Admin
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param integer $phone
+     *
+     * @return Admin
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return integer
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+    /**
+     * Set photo
+     *
+     * @param string $photo
+     * @return Admin
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+        return $this;
+    }
+    /**
+     * Get photo
+     *
+     * @return string
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+}

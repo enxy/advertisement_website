@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% include 'menu.html.twig' %}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}. Kliknij, aby dodac kolejne <a class="highlighter" href="{{  path('advert_add') }}">tutaj.</a>
+        </div>
+    {% endfor %}
+    {% for flash_message in app.session.flashBag.get('notFound') %}
+        <div class="alert alert-success">
+           {{ flash_message }}
+        </div>
+    {% endfor %}
+    {% if advert %}
+         <div style="width: 100%; background-color: #e6f2ff; height: 800px; padding-top: 100px;">
+                <div class="container-design nav-green" style="float: right;">
+                    <section>
+                       <img style="float: right;" id="photo-img" class="thumbnail" src="{{ asset("uploads/photos/admin/" ~ advert.photo) }}" alt="photo image">
+                       <h2 style="padding: 30px 0 0 30px;"><strong>Title:</strong> <em>{{ advert.title }}</em></h2>
+                    <section>
+                    <section style="padding: 40px;">
+                        {{ advert.content|striptags }}
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac...
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac...
+                        <div style="clear:both;"></div>
+                        <span>
+                            <p style="float: right; margin-top: 50px;"><strong>Published:</strong> <em>{{ advert.dateAdded|date('Y-m-d') }}</em></p>
+                        </span>
+                    </section>
+                </div>
+                <div class="nav-design nav-orange" style="padding: 10px 0 0 10px;">
+                    <h4><strong>Kategoria:</strong> {{ advert.category }}</h4>
+                    <h4><strong>Status:</strong> {% if advert.public %}Public{% else %} Private {% endif %}</h4>
+                 </div>
+
+                 <div class="nav-design nav-violet" style="padding: 10px 0 0 10px;">
+                    <h4><strong>Login:</strong> {{ advert.userId.name }}</h4>
+                    <h4><strong>E-mail:</strong> <a href="mailto:{{ advert.userId.email }}">{{ advert.userId.email }}</a></h4>
+                    <h4><strong>Telefon:</strong> {{ advert.userId.phone }}
+                 </div>
+
+                 <div class="nav-design nav-red" style="padding: 10px 0 0 10px;">
+                    <h4><strong>Miasto:</strong>
+                        {% for city in advert.cities %}
+                            {{ city.name }}
+                        {% endfor %}
+                    </h4>
+                    <h4><strong>Województwo:</strong> {{ advert.voivodeshipId.name }}</h4>
+                    {% if advert.public %}<h4><strong>Status:</strong> Advert is public</h4>{% endif %}
+                 </div>
+         </div>
+    {% else %}
+        <p>404 ogłoszenie nie zostało znalezione!</p>
+    {% endif %}
+{% endblock %}
